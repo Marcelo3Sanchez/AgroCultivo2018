@@ -155,7 +155,6 @@ public class Add_almacenamiento extends AppCompatActivity {
 
 
    //Volley Inserta Almacenamiento
-
     public  void insertar_almacen(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_almacen, new Response.Listener<String>() {
             @Override
