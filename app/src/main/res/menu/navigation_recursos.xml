@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home_recurs"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_micultivo_recurs"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_micultivo" />
+
+    <item
+        android:id="@+id/navigation_add_recurs"
+        android:icon="@drawable/ic_menu_send"
+        android:title="@string/title_add" />
+
+
+</menu>

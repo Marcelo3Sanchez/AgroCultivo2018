@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Agro Cultivo</string>
+
+
+    <string name="host">"http://192.168.0.100/WebService/"</string>
+
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Usuario</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Iniciar</string>
+    <string name="action_sign_in_short">Bienvenido</string>
+    <string name="error_invalid_email">Usuario no valido</string>
+    <string name="error_invalid_password">Password no valido</string>
+    <string name="error_incorrect_password">Usuario o password inncorrectos</string>
+    <string name="error_field_required">Por favor ingrese un usuario</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_home">home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_mis_cultivos">misCultivos</string>
+    <string name="title_activity_grid_cultivos">GridCultivos</string>
+    <string name="title_activity_pre_terreno">PreTerreno</string>
+    <string name="title_home">Home</string>
+    <string name="title_micultivo">Cutivos</string>
+    <string name="title_add">Nuevo</string>
+    <string name="title_activity_pre_terr">PreTerr</string>
+    <string name="tab_text_1">TABLITA 1</string>
+    <string name="tab_text_2">TABLITA 2</string>
+    <string name="tab_text_3">PRUEBITA 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_prueba">prueba</string>
+
+
+</resources>

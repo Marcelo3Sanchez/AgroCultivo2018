@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="item_terreno">
+        <item >Estudio de suelo</item>
+        <item >Maquinaria</item>
+        <item >Mano de obra</item>
+        <item >Riego</item>
+        <item >Transporte</item>
+    </string-array>
+</resources>
