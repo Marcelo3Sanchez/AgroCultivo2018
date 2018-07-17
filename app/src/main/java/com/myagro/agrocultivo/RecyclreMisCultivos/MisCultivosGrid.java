@@ -168,7 +168,7 @@ public class MisCultivosGrid extends AppCompatActivity implements Response.Liste
 
 
     private void cargarService(){
-
+//
         SharedPreferences preferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String iduser = preferences.getString("id",null);
         String url =getString(R.string.host)+"MisCultivos.php?id="+iduser;
