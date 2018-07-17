@@ -22,7 +22,11 @@ public class SplashScreem extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-               sesion();
+                Intent home = new Intent(SplashScreem.this, home.class);
+                finish();
+                startActivity(home);
+
+               //sesion();
             }
         },2000);
     }

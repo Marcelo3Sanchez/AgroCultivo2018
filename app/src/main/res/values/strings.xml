@@ -2,7 +2,7 @@
     <string name="app_name">Agro Cultivo</string>
 
 
-    <string name="host">"http://192.168.0.100/WebService/"</string>
+    <string name="host">"http://192.168.43.98/"</string>
 
 
     <!-- Strings related to login -->

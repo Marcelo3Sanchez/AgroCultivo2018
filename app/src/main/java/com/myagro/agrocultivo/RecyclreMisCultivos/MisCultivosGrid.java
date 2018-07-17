@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.Entidades.Mis_cultivos;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Siembra;
 import com.myagro.agrocultivo.R;
 
 import org.json.JSONArray;
@@ -40,10 +39,6 @@ public class MisCultivosGrid extends AppCompatActivity implements Response.Liste
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,8 +54,7 @@ public class MisCultivosGrid extends AppCompatActivity implements Response.Liste
 
                     return true;
                 case R.id.navigation_notifications:
-                    Intent add = new Intent(MisCultivosGrid.this, Add_cultivo.class);
-                    startActivity(add);
+
                     return true;
             }
             return false;
@@ -90,6 +84,8 @@ public class MisCultivosGrid extends AppCompatActivity implements Response.Liste
 
     @Override
     public void onResponse(JSONObject response) {
+        Toast.makeText(getApplicationContext(),"Mis cultivos", Toast.LENGTH_SHORT).show();
+
         Mis_cultivos misUsuarios = new Mis_cultivos();
         JSONArray json = response.optJSONArray("cultivos");
         JSONObject jsonObject = null;
@@ -172,6 +168,7 @@ public class MisCultivosGrid extends AppCompatActivity implements Response.Liste
 
 
     private void cargarService(){
+
         SharedPreferences preferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String iduser = preferences.getString("id",null);
         String url =getString(R.string.host)+"MisCultivos.php?id="+iduser;
