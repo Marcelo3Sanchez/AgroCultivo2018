@@ -27,15 +27,15 @@
             android:layout_width="164dp"
             android:layout_height="163dp"
             android:layout_gravity="fill_vertical|center_horizontal|clip_vertical|clip_horizontal"
-            android:src="@mipmap/icon" />
+            android:src="@drawable/simbolo" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="89dp"
+            android:layout_height="65dp"
             android:gravity="fill_vertical|center_horizontal"
-            android:text="Agro Cultivo"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:text="MyAgroCultivo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@android:color/black"
             android:textSize="28sp" />
 

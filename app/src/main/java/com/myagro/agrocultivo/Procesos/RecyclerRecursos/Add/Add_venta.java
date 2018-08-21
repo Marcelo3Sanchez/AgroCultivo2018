@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,12 +36,13 @@ public class Add_venta extends AppCompatActivity {
     String recurso;
     int recurs=0;
     CardView add;
+    Button salir;
     EditText cantidad, inversion, nota;
     int a=1;
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
     }
 
     private boolean iscantValid_a(String cant) {
@@ -146,6 +148,16 @@ public class Add_venta extends AppCompatActivity {
              recurso = adapterView.getItemAtPosition(i).toString();
             }
             @Override  public void onNothingSelected(AdapterView<?> adapterView) {   }  });
+
+        salir = (Button) findViewById(R.id.add_salir_venta);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            finish();
+            }
+        });
+
+
     }
 
     //Volley Inserta venta

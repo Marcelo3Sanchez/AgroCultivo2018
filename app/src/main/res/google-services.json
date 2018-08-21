@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1068772085683",
+    "firebase_url": "https://myagrocultivo.firebaseio.com",
+    "project_id": "myagrocultivo",
+    "storage_bucket": "myagrocultivo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068772085683:android:4af8467b183d0ebf",
+        "android_client_info": {
+          "package_name": "com.myagro.agrocultivo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068772085683-ug636e659rf1bqekoks17sqpu7clfpqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myagro.agrocultivo",
+            "certificate_hash": "0fbc6747f9f21a0af435560cfe0ad7f06d9babab"
+          }
+        },
+        {
+          "client_id": "1068772085683-g3ntqu1occ06s7ja1iukcq81vn76tj5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyJbDB9fHQM2ok0kDfu8UgKDVTlpQA01A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068772085683-g3ntqu1occ06s7ja1iukcq81vn76tj5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

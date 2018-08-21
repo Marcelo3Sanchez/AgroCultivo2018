@@ -22,11 +22,9 @@ public class SplashScreem extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent home = new Intent(SplashScreem.this, home.class);
-                finish();
-                startActivity(home);
 
-               //sesion();
+
+               sesion();
             }
         },2000);
     }
@@ -37,8 +35,9 @@ public class SplashScreem extends Activity {
         String id = preferences.getString("id",null);
         String user = preferences.getString("user",null);
         String pass = preferences.getString("pass",null);
+
         if(id != null && user != null && pass !=null){
-            Intent home = new Intent(SplashScreem.this, home.class);
+            Intent home = new Intent(SplashScreem.this, Home.class);
             finish();
             startActivity(home);
         }else{ Intent login = new Intent(SplashScreem.this, Login.class);

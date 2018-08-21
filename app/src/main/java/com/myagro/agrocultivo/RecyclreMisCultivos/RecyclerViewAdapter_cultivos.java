@@ -61,6 +61,7 @@ public class RecyclerViewAdapter_cultivos extends RecyclerView.Adapter<RecyclerV
                 intent.putExtra("created_ad",mData.get(position).getCreated_ad());
                 mContext.startActivity(intent);
 
+
             }
         });
     }

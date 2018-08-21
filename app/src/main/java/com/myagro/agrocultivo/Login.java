@@ -1,23 +1,16 @@
 package com.myagro.agrocultivo;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,19 +28,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
 
 public class Login extends Activity {
 
     private static final int REQUEST_READ_CONTACTS = 0;
-    private home mAuthTask = null;
+    private Home mAuthTask = null;
     String id;
 
-    AutoCompleteTextView txtUser;
+    EditText txtUser;
     EditText txtPass;
-
-
+    Button login;
 
 
     @Override
@@ -55,11 +45,11 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        txtUser=(AutoCompleteTextView) findViewById(R.id.txtUser);
+        login = (Button) findViewById(R.id.btnIngresar);
+        txtUser=(EditText) findViewById(R.id.txtUser);
         txtPass=(EditText)findViewById(R.id.txtPass);
 
-         txtPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        txtPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -77,8 +67,6 @@ public class Login extends Activity {
                 attemptLogin();
             }
         });
-
-
     }
 
 
@@ -88,6 +76,7 @@ public class Login extends Activity {
         String user =txtUser.getText().toString();
         String pass=txtPass.getText().toString();
         String idCult = null;
+
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("id",id);
         editor.putString("user",user);
@@ -100,6 +89,7 @@ public class Login extends Activity {
 
 
     private void attemptLogin() {
+
         if (mAuthTask != null) {
             return;
         }
@@ -138,33 +128,43 @@ public class Login extends Activity {
             focusView.requestFocus();
         } else {
 
-
+            login.setEnabled(false);
             Thread tr = new Thread() {
                 @Override
                 public void run() {
+
                     final String resultado = enviarDatosGET(txtUser.getText().toString(), txtPass.getText().toString());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             int r = obtenerDatosJSON(resultado);
                             if (r > 0) {
 
+                                final ProgressDialog progressDialog = new ProgressDialog(Login.this);
+                                progressDialog.setTitle("Cargando");
+                                progressDialog.setMessage("Espere...");
+                                progressDialog.show();
                                 sesion();
+                                login.setEnabled(true);
                                 new Handler().postDelayed(new Runnable() {
                                     public void run() {
                                         finish();
-                                        Intent home = new Intent(getApplicationContext(), home.class);
+                                        Intent home = new Intent(getApplicationContext(), Home.class);
                                         startActivity(home);
+
                                         home.putExtra("cod", txtUser.getText().toString());
+                                        //progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Secion Iniciada", Toast.LENGTH_LONG).show();
 
                                     }
 
-                                    ;
                                 }, 2000);
 
                             } else {
+
                                 Toast.makeText(getApplicationContext(), "Usuario o Password Incorrectos", Toast.LENGTH_LONG).show();
+                                login.setEnabled(true);
                             }
                         }
                     });
@@ -191,12 +191,13 @@ public class Login extends Activity {
 
 
     public String enviarDatosGET(String usu, String pas){
+
         URL url = null;
         String linea="";
         int respuesta =0;
         StringBuilder resul = null;
         try{
-            url = new URL(getString(R.string.host)+"validar.php?usu="+usu+"&pas="+pas);
+            url = new URL(getString(R.string.host)+"login/loginmovil/"+usu+"/"+pas);
             HttpURLConnection connection =(HttpURLConnection)url.openConnection();
             respuesta = connection.getResponseCode();
             resul= new StringBuilder();
@@ -211,6 +212,7 @@ public class Login extends Activity {
 
         }catch (Exception e){}
         return resul.toString();
+
     }
 
     public int obtenerDatosJSON(String response){
@@ -225,7 +227,6 @@ public class Login extends Activity {
                 jsonObject = json.getJSONObject(0);
                 usu.setId(jsonObject.getString("id"));
                 id=usu.getId().toString();
-
             }
         }catch (Exception e){}
         return res;

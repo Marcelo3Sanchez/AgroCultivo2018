@@ -59,7 +59,7 @@
             android:layout_margin="25dp"
             android:layout_rowWeight="1"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_blue_dark"
+            app:cardBackgroundColor="#2589bd"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp">
 

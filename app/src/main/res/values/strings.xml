@@ -1,19 +1,21 @@
 <resources>
-    <string name="app_name">Agro Cultivo</string>
+    <string name="app_name">MyAgroCultivo</string>
 
 
-    <string name="host">"http://192.168.43.98/"</string>
+    <string name="host">"http://206.189.165.63/"</string>
+
+    <string name="host2">"http://206.189.165.63/"</string>
 
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Usuario</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Iniciar</string>
     <string name="action_sign_in_short">Bienvenido</string>
-    <string name="error_invalid_email">Usuario no valido</string>
-    <string name="error_invalid_password">Password no valido</string>
-    <string name="error_incorrect_password">Usuario o password inncorrectos</string>
-    <string name="error_field_required">Por favor ingrese un usuario</string>
+    <string name="error_invalid_email">Email no valido</string>
+    <string name="error_invalid_password">Contraseña no valida</string>
+    <string name="error_incorrect_password">Email o contrseña inncorrectos</string>
+    <string name="error_field_required">Por favor ingrese un email</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

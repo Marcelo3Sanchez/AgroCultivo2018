@@ -19,14 +19,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.Entidades.Pro_ctrl_almacenamiento;
-import com.myagro.agrocultivo.Procesos.CultProcesos;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Add.Add_almacenamiento;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Card_recursos;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_almacen;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_venta;
 import com.myagro.agrocultivo.R;
 import com.myagro.agrocultivo.RecyclreMisCultivos.MisCultivosGrid;
-import com.myagro.agrocultivo.home;
+import com.myagro.agrocultivo.Home;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,9 +44,7 @@ public class Grid_Almacenamiento extends AppCompatActivity implements Response.L
 
     @Override
     public void onBackPressed() {
-        finish();
-
-
+      super.onBackPressed();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -57,16 +53,15 @@ public class Grid_Almacenamiento extends AppCompatActivity implements Response.L
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Intent inicio = new Intent(Grid_Almacenamiento.this, com.myagro.agrocultivo.home.class);
+                case R.id.navigation_home_recurs:
+                    startActivity(new Intent(getBaseContext(), Home.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                     finish();
-                    startActivity(inicio);
                     return true;
                 case R.id.navigation_micultivo_recurs:
-                    Intent cult = new Intent(Grid_Almacenamiento.this, MisCultivosGrid.class);
+                    startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                     finish();
-                    startActivity(cult);
-
                     return true;
                 case R.id.navigation_add_recurs:
                     Intent add = new Intent(Grid_Almacenamiento.this, Add_almacenamiento.class);

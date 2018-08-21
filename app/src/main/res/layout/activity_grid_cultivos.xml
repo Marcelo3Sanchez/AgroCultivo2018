@@ -6,9 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1efeb"
+    android:background="#2589bd"
+    android:baselineAligned="false"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".RecyclreMisCultivos.MisCultivosGrid">
 
     <android.support.design.widget.AppBarLayout
@@ -21,40 +21,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#FF10244D"
-                app:cardCornerRadius="13dp">
+                app:cardBackgroundColor="#2589bd">
 
                 <TextView
                     android:id="@+id/n"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/coda"
                     android:gravity="fill_vertical|center_horizontal"
                     android:text="Mis cultivos"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                    android:textColor="#FFFCFDFF"
-                    android:textSize="20sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_id"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="6dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.CardView>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -69,7 +74,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/navigation">
+        app:menu="@menu/navigation_two">
 
     </android.support.design.widget.BottomNavigationView>
 

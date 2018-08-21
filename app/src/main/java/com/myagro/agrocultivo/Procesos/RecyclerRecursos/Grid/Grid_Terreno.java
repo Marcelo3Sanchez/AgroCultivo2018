@@ -2,6 +2,7 @@ package com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,10 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.Entidades.Pro_recursos;
-import com.myagro.agrocultivo.Procesos.CultProcesos;
+import com.myagro.agrocultivo.Home;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Add.Add_terreno;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Card_recursos;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_recursos;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_pre_terreno;
 import com.myagro.agrocultivo.R;
 import com.myagro.agrocultivo.RecyclreMisCultivos.MisCultivosGrid;
 
@@ -34,7 +35,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class Grid_Terreno extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -49,10 +49,9 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
         finish();
-
-
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -63,21 +62,22 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
             switch (item.getItemId()) {
 
                 case R.id.navigation_home_recurs:
-                    Intent inicio = new Intent(Grid_Terreno.this, com.myagro.agrocultivo.home.class);
-                    startActivity(inicio);
+                    startActivity(new Intent(getBaseContext(), Home.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    finish();
+                    return true;
+                case R.id.navigation_micultivo_recurs:
+                    startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    finish();
                     return true;
 
-                case R.id.navigation_micultivo_recurs:
-
-                    Intent cult = new Intent(Grid_Terreno.this, MisCultivosGrid.class);
-
-                    startActivity(cult);
-                    return false;
-
                 case R.id.navigation_add_recurs:
-                    Intent add = new Intent(Grid_Terreno.this, Add_terreno.class);
+                    Intent add = new Intent(getApplication(), Add_terreno.class);
                     add.putExtra("idCultivo",idCultivo);
                     startActivity(add);
+                    finish();
+
                     return true;
             }
             return false;
@@ -95,7 +95,9 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
         txt_n = (TextView)findViewById(R.id.txt_name_recurs);
         Intent intent = getIntent();
         String nombre = intent.getExtras().getString("name");
-        idCultivo = intent.getExtras().getString("idcult");
+
+        SharedPreferences preferences = getSharedPreferences("put_recurso", Context.MODE_PRIVATE);
+        idCultivo = preferences.getString("idCultivo",null);
         txt_n.setText(nombre);
         contextos = this;
 
@@ -116,11 +118,13 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
     public void onResponse(JSONObject response) {
 
         Pro_recursos Prorecursos = new Pro_recursos();
-        JSONArray json = response.optJSONArray("terreno");
+
+        JSONArray json = response.optJSONArray("preparacion_terreno");
         JSONObject jsonObject = null;
         lstRecurso = new ArrayList<>();
 
         try {
+
             for (int i = 0; i <json.length() ; i++) {
                 jsonObject = json.getJSONObject(i);
                 Prorecursos.setId(jsonObject.getString("id"));
@@ -159,7 +163,8 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
             }
 
             RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id_recurs);
-            RecyclerViewAdap_recursos myAdapter = new RecyclerViewAdap_recursos(this,this,lstRecurso);
+
+            RecyclerViewAdap_pre_terreno myAdapter = new RecyclerViewAdap_pre_terreno(this,this,lstRecurso);
             myrv.setLayoutManager(new GridLayoutManager(this,1));
             myrv.setAdapter(myAdapter);
 
@@ -170,9 +175,13 @@ public class Grid_Terreno extends AppCompatActivity implements Response.Listener
     }
 
 
-    private void cargarService(){
-        String url =getString(R.string.host)+"pre_terreno.php?id="+idCultivo;
+    public void cargarService(){
+
+        String url =getString(R.string.host)+"preparacionterreno/obtener/id_cultivo/"+idCultivo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
+
+
+
 }

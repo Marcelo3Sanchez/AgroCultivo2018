@@ -1,6 +1,7 @@
 package com.myagro.agrocultivo.RecyclreMisCultivos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,12 +25,13 @@ import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Add_cultivo extends AppCompatActivity {
 
-    String URL_POST_add_cultivo = R.string.host+"add_cultivo.php";
+    String URL_POST_add_cultivo = "http://206.189.165.63/miscultivos/anadir";
 
     String tipo_arroz,tipo_sembrio,iduser;
     int a=1;
@@ -36,11 +39,14 @@ public class Add_cultivo extends AppCompatActivity {
     View focusView = null;
     Spinner item_sembrio, item_arroz;
     CardView add;
+    Button salir;
     EditText name, dimension, inicial, semilla, inversion;
 
 
     @Override
     public void onBackPressed() {
+        Intent addcultiv = new Intent(Add_cultivo.this, MisCultivosGrid.class);
+        startActivity(addcultiv);
         finish();
     }
 
@@ -164,10 +170,16 @@ public void validar(){
         inversion = (EditText)findViewById(R.id.add_inversion__cult_nuev);
 
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,item_tipo_arroz);
+
+
+
+
+
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_selectable_list_item,item_tipo_arroz);
         item_arroz.setAdapter(adapter);
 
-        ArrayAdapter<CharSequence> Itemsembrio = new ArrayAdapter(this, android.R.layout.simple_spinner_item,item_tipo_sembrio);
+        ArrayAdapter<CharSequence> Itemsembrio = new ArrayAdapter(this, android.R.layout.simple_selectable_list_item,item_tipo_sembrio);
         item_sembrio.setAdapter(Itemsembrio);
 
         item_arroz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -196,15 +208,28 @@ public void validar(){
                 validar();
                 if(a==1){
                     insertar_cultivo();
-                    finish();}
+                    startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    finish();
+                }
             }
         });
+
+        salir = (Button) findViewById(R.id.add_salir__cult_nuev);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    finish();
+            }
+        });
+
     }
 
 
 
     public  void insertar_cultivo(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_cultivo, new Response.Listener<String>() {
+       // String URL_POST_add_cultivo = "http://206.189.165.63/miscultivos/anadir";
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_cultivo, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getApplication(), response,Toast.LENGTH_SHORT).show();
@@ -212,11 +237,10 @@ public void validar(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(Add_cultivo.this , error+"", Toast.LENGTH_SHORT).show();
             }
         }){
-            //name_cult, dimension_cult, tipo_arroz, tipo_siembra,
-            // cantidad_semilla, valor_inversion, capital_inicial,estado_cultivo, users_id
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -229,15 +253,15 @@ public void validar(){
                 String cap_inic = inicial.getText().toString();
                 String estado_cult = "true" ;
                 String userid = iduser;
-                params.put("name",nam_cult);
-                params.put("dime",dim_cult);
-                params.put("tipr",tipo_arr );
-                params.put("tips", tipo_siembra);
-                params.put("cants", cant_sem);
-                params.put("vali", val_inver);
-                params.put("capi", cap_inic);
-                params.put("estac", estado_cult);
-                params.put("usid", userid);
+                params.put("name_cult",nam_cult);
+                params.put("dimension_cult",dim_cult);
+                params.put("tipo_arroz",tipo_arr );
+                params.put("tipo_siembra", tipo_siembra);
+                params.put("cantidad_semilla", cant_sem);
+                params.put("valor_inversion", val_inver);
+                params.put("capital_inicial", cap_inic);
+                params.put("estado_cultivo", estado_cult);
+                params.put("users_id", userid);
                 return params;
             }
         };

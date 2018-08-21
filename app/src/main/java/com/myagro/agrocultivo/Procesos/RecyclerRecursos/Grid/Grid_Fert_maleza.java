@@ -1,6 +1,8 @@
 package com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,10 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.Entidades.Pro_ctrl_maleza;
-import com.myagro.agrocultivo.Procesos.CultProcesos;
+import com.myagro.agrocultivo.Home;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Add.Add_fer_maleza;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Card_recursos;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_maleza;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_fer_maleza;
 import com.myagro.agrocultivo.R;
 import com.myagro.agrocultivo.RecyclreMisCultivos.MisCultivosGrid;
 
@@ -36,6 +38,7 @@ import java.util.List;
 
 public class Grid_Fert_maleza extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
+    private Context contextos;
     List<Card_recursos> lstRecurso;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -44,10 +47,11 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
         finish();
-
-
     }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,17 +59,15 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Intent inicio = new Intent(Grid_Fert_maleza.this, com.myagro.agrocultivo.home.class);
+                case R.id.navigation_home_recurs:
+                    startActivity(new Intent(getBaseContext(), Home.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                     finish();
-                    startActivity(inicio);
-
                     return true;
                 case R.id.navigation_micultivo_recurs:
-                    Intent cult = new Intent(Grid_Fert_maleza.this, MisCultivosGrid.class);
+                    startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                     finish();
-                    startActivity(cult);
-
                     return true;
                 case R.id.navigation_add_recurs:
                     Intent add = new Intent(Grid_Fert_maleza.this, Add_fer_maleza.class);
@@ -87,9 +89,15 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
 
         txt_n = (TextView)findViewById(R.id.txt_name_recurs);
         Intent intent = getIntent();
+
         String nombre = intent.getExtras().getString("name");
         idCultivo = intent.getExtras().getString("idcult");
+
+
+        SharedPreferences preferences = getSharedPreferences("put_recurso", Context.MODE_PRIVATE);
+        idCultivo = preferences.getString("idCultivo",null);
         txt_n.setText(nombre);
+        contextos = this;
 
         request= Volley.newRequestQueue(getBaseContext());
         cargarService();
@@ -108,7 +116,7 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
     @Override
     public void onResponse(JSONObject response) {
         Pro_ctrl_maleza ctrlmaleza = new Pro_ctrl_maleza();
-        JSONArray json = response.optJSONArray("fert_maleza");
+        JSONArray json = response.optJSONArray("fertilizacion_recursos");
         JSONObject jsonObject = null;
         lstRecurso = new ArrayList<>();
 
@@ -151,7 +159,7 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
             }
 
             RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id_recurs);
-            RecyclerViewAdap_maleza myAdapter = new RecyclerViewAdap_maleza(this,this,lstRecurso);
+            RecyclerViewAdap_fer_maleza myAdapter = new RecyclerViewAdap_fer_maleza(this,this,lstRecurso);
             myrv.setLayoutManager(new GridLayoutManager(this,1));
             myrv.setAdapter(myAdapter);
 
@@ -162,7 +170,7 @@ public class Grid_Fert_maleza extends AppCompatActivity implements Response.List
     }
 
     private void cargarService(){
-        String url =getString(R.string.host)+"fertilizacion_malezas.php?id="+idCultivo;
+        String url =getString(R.string.host)+"fertilizacioninsumos/obtener/id_cultivo/"+idCultivo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }

@@ -1,6 +1,8 @@
 package com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,10 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.myagro.agrocultivo.Entidades.Pro_recursos;
-import com.myagro.agrocultivo.Procesos.CultProcesos;
+import com.myagro.agrocultivo.Home;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Add.Add_siembra;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Card_recursos;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_recursos;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.RecyclerView.RecyclerViewAdap_siembra;
 import com.myagro.agrocultivo.R;
 import com.myagro.agrocultivo.RecyclreMisCultivos.MisCultivosGrid;
 
@@ -44,9 +46,9 @@ public class Grid_Siembra extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
         finish();
-
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -55,17 +57,16 @@ public class Grid_Siembra extends AppCompatActivity implements Response.Listener
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+
                 case R.id.navigation_home_recurs:
-
-                    Intent inicio = new Intent(Grid_Siembra.this, com.myagro.agrocultivo.home.class);
-                    startActivity(inicio);
-
+                    startActivity(new Intent(getBaseContext(), Home.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    finish();
                     return true;
                 case R.id.navigation_micultivo_recurs:
-
-                    Intent cult = new Intent(Grid_Siembra.this, MisCultivosGrid.class);
-                    startActivity(cult);
-
+                    startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    finish();
                     return true;
                 case R.id.navigation_add_recurs:
                     Intent add = new Intent(Grid_Siembra.this, Add_siembra.class);
@@ -82,15 +83,17 @@ public class Grid_Siembra extends AppCompatActivity implements Response.Listener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_recursos);
 
+        SharedPreferences preferences = getSharedPreferences("put_recurso", Context.MODE_PRIVATE);
+        idCultivo = preferences.getString("idCultivo",null);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_recurs);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         txt_n = (TextView)findViewById(R.id.txt_name_recurs);
         Intent intent = getIntent();
         String nombre = intent.getExtras().getString("name");
-        idCultivo = intent.getExtras().getString("idcult");
-        txt_n.setText(nombre);
 
+        txt_n.setText(nombre);
         request= Volley.newRequestQueue(getBaseContext());
         cargarService();
 
@@ -150,7 +153,7 @@ public class Grid_Siembra extends AppCompatActivity implements Response.Listener
                }
 
             RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id_recurs);
-            RecyclerViewAdap_recursos myAdapter = new RecyclerViewAdap_recursos(this,this,lstRecurso);
+            RecyclerViewAdap_siembra myAdapter = new RecyclerViewAdap_siembra(this,this,lstRecurso);
             myrv.setLayoutManager(new GridLayoutManager(this,1));
             myrv.setAdapter(myAdapter);
 
@@ -161,9 +164,8 @@ public class Grid_Siembra extends AppCompatActivity implements Response.Listener
     }
 
 
-
     private void cargarService(){
-        String url =getString(R.string.host)+"siembra.php?id="+idCultivo;
+        String url =getString(R.string.host)+"siembra/obtener/id_cultivo/"+idCultivo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }

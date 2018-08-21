@@ -2,18 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout2018"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFFFF"
+    android:background="#2589bd"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    >
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_weight="1"
+        android:background="#ffffff"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2589bd"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#2589bd"
+                android:fontFamily="@font/coda"
+                android:gravity="center"
+                android:text="Reporte de gastos e ingresos "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:cursorVisible="false"
+
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+
+            android:saveEnabled="false"
+            android:scrollHorizontally="false"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:selectAllOnFocus="false"
+            android:textAllCaps="false"
+            android:textIsSelectable="false" />
+
 
     </LinearLayout>
 
@@ -30,9 +79,6 @@
         app:menu="@menu/navigation">
 
     </android.support.design.widget.BottomNavigationView>
-
-
-
 
 
 </LinearLayout>

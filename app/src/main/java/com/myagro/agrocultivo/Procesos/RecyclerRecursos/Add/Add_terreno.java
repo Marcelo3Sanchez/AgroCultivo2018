@@ -20,7 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Terreno;
 import com.myagro.agrocultivo.R;
+import com.myagro.agrocultivo.RecyclreMisCultivos.Add_cultivo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +30,7 @@ import java.util.Map;
 
 public class Add_terreno extends AppCompatActivity {
 
-    String URL_POST_add_terreno = R.string.host+"add_cultivo.php";
+
     String idCultivo;
     View focusView = null;
     Spinner item_terreno;
@@ -36,11 +38,15 @@ public class Add_terreno extends AppCompatActivity {
     String recurso;
     int recurs=0;
     CardView add;
+    Button salir;
     EditText horas, inversion, nota;
     int a=1;
 
     @Override
     public void onBackPressed() {
+        Intent addcultiv = new Intent(Add_terreno.this, Grid_Terreno.class);
+        addcultiv.putExtra("name","Preparacion de Terrenos");
+        startActivity(addcultiv);
         finish();
     }
 
@@ -123,14 +129,14 @@ public class Add_terreno extends AppCompatActivity {
 
 
         ArrayList<String> item_recurso = new ArrayList<String>();
-        item_recurso.add("Estudio de suelo");
-        item_recurso.add("Maquinaria");
-        item_recurso.add("Mano de obra");
-        item_recurso.add("Riego");
-        item_recurso.add("Transporte");
+        item_recurso.add("Estudio de suelo \n");
+        item_recurso.add("Maquinaria \n");
+        item_recurso.add("Mano de obra \n");
+        item_recurso.add("Riego \n");
+        item_recurso.add("Transporte \n");
 
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,item_recurso);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,item_recurso);
         item_terreno.setAdapter(adapter);
 
 
@@ -140,7 +146,13 @@ public class Add_terreno extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validar();
-                if(a==1){finish();}
+                if(a==1){
+                    insertar_terreno();
+                    Intent addcultiv = new Intent(Add_terreno.this, Grid_Terreno.class);
+                    addcultiv.putExtra("name","Preparacion de Terrenos");
+                    startActivity(addcultiv);
+                    finish();
+                }
             }
         });
 
@@ -148,17 +160,29 @@ public class Add_terreno extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             recurs = adapterView.getSelectedItemPosition();
-            Toast.makeText(getBaseContext(),Integer.toString(recurs),Toast.LENGTH_SHORT).show();
-             recurso = adapterView.getItemAtPosition(i).toString();
+            recurso = adapterView.getItemAtPosition(i).toString();
             }
             @Override  public void onNothingSelected(AdapterView<?> adapterView) {   }  });
+
+        salir = (Button) findViewById(R.id.add_salir_recurs);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
     }
 
 
     //Volley Inserta terreno
 
+
     public  void insertar_terreno(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_terreno, new Response.Listener<String>() {
+        String URL_POST_add_terreno ="http://206.189.165.63/cultivo/preparacionterreno/anadir";
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_terreno, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getApplication(), response,Toast.LENGTH_SHORT).show();
@@ -166,11 +190,10 @@ public class Add_terreno extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Add_terreno.this , error+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication() , error+"", Toast.LENGTH_SHORT).show();
             }
         }){
 
-            // tipo_recurso, n_horas, val_inversion, notas, cultivos_id
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -179,11 +202,11 @@ public class Add_terreno extends AppCompatActivity {
                 String val= inversion.getText().toString();
                 String not = nota.getText().toString() ;
                 String cultid = idCultivo.toString();
-                params.put("name",tipo);
-                params.put("dime",hor);
-                params.put("tipr",val );
-                params.put("tips", not);
-                params.put("cants", cultid);
+                params.put("tipo_recurso",tipo);
+                params.put("n_horas",hor);
+                params.put("val_inversion",val );
+                params.put("notas", not);
+                params.put("cultivos_id", cultid);
                 return params;
             }
         };

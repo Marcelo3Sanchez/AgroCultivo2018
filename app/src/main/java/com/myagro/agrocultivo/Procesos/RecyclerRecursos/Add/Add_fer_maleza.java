@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Fert_Recurs;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Fert_maleza;
 import com.myagro.agrocultivo.R;
 
 import java.util.ArrayList;
@@ -35,11 +38,15 @@ public class Add_fer_maleza extends AppCompatActivity {
     String recurso;
     int recurs=0;
     CardView add;
+    Button salir;
     EditText cantidad, inversion, nota;
     int a=1;
 
     @Override
     public void onBackPressed() {
+        Intent addcultiv = new Intent(getApplication(), Grid_Fert_maleza.class);
+        addcultiv.putExtra("name","Insumos de fertilización");
+        startActivity(addcultiv);
         finish();
     }
 
@@ -110,7 +117,8 @@ public class Add_fer_maleza extends AppCompatActivity {
 
         Intent intent = getIntent();
         idCultivo = intent.getExtras().getString("idCultivo");
-        Toast.makeText(getApplication(), idCultivo,Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(getApplication(), idCultivo,Toast.LENGTH_SHORT).show();
 
         item_fer_malez = (Spinner) findViewById(R.id.add_spinner_malez);
         titulo = (TextView)findViewById(R.id.add_title_malez);
@@ -126,16 +134,22 @@ public class Add_fer_maleza extends AppCompatActivity {
         item_recurso.add("Abonos");
         item_recurso.add("Ureas y otros");
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,item_recurso);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,item_recurso);
         item_fer_malez.setAdapter(adapter);
 
-        titulo.setText("Fertilizantes y abonos");
+        titulo.setText("Insumos de fertilización");
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validar();
-                if(a==1){finish();}
+                if(a==1){
+                    insertar_fer_maleza();
+                    Intent addcultiv = new Intent(getApplication(), Grid_Fert_maleza.class);
+                    addcultiv.putExtra("name","Insumos de fertilización");
+                    startActivity(addcultiv);
+                    finish();
+                }
             }
         });
 
@@ -143,10 +157,19 @@ public class Add_fer_maleza extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             recurs = adapterView.getSelectedItemPosition();
-            Toast.makeText(getBaseContext(),Integer.toString(recurs),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),Integer.toString(recurs),Toast.LENGTH_SHORT).show();
             recurso = adapterView.getItemAtPosition(i).toString();
             }
             @Override  public void onNothingSelected(AdapterView<?> adapterView) {   }  });
+
+        salir = (Button) findViewById(R.id.add_salir_maleza);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    finish();
+            }
+        });
+
     }
 
 
@@ -154,8 +177,10 @@ public class Add_fer_maleza extends AppCompatActivity {
 
     //Volley Inserta maleza
 
-    public  void insertar_maleza(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_maleza, new Response.Listener<String>() {
+    public  void insertar_fer_maleza(){
+
+        String URL_POST_add_recurs ="http://206.189.165.63/cultivo/fertilizacioninsumos/anadir";
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_recurs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getApplication(), response,Toast.LENGTH_SHORT).show();
@@ -163,30 +188,30 @@ public class Add_fer_maleza extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Add_fer_maleza.this , error+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication() , error+"", Toast.LENGTH_SHORT).show();
             }
         }){
 
-            // tipo_recurso,cantidad, val_inversion, notas, cultivos_id
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 String tipo= Integer.toString(recurs);
-                String cant = cantidad.getText().toString();
+                String hor = cantidad.getText().toString();
                 String val= inversion.getText().toString();
                 String not = nota.getText().toString() ;
                 String cultid = idCultivo.toString();
-                params.put("name",tipo);
-                params.put("dime",cant);
-                params.put("tipr",val );
-                params.put("tips", not);
-                params.put("cants", cultid);
+                params.put("tipo_componente",tipo);
+                params.put("cantidad",hor);
+                params.put("val_inversion",val );
+                params.put("notas", not);
+                params.put("cultivos_id", cultid);
                 return params;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
 
 
 }

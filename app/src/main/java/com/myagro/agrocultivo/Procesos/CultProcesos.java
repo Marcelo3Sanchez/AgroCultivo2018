@@ -3,6 +3,7 @@ package com.myagro.agrocultivo.Procesos;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -11,8 +12,10 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Barchar_recursos;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Almacenamiento;
-import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Cosecha;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_cant_cosechada;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_recursos_cosecha;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Fert_Recurs;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Fert_maleza;
 import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Siembra;
@@ -23,7 +26,7 @@ import com.myagro.agrocultivo.RecyclreMisCultivos.MisCultivosGrid;
 
 public class CultProcesos extends AppCompatActivity {
 
-    CardView pre_terreno, siembra, fertilizacion, cosecha, venta;
+    CardView pre_terreno, siembra, fertilizacion, cosecha, venta, info;
     TextView nombre, tipo, metodo,  fecha;
     String idCultivo;
     int val = 0;
@@ -31,8 +34,8 @@ public class CultProcesos extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-
+        startActivity(new Intent(getBaseContext(), MisCultivosGrid.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
         finish();
     }
 
@@ -42,6 +45,8 @@ public class CultProcesos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_procesos);
         contextos = this;
+
+        info = (CardView)findViewById(R.id.info);
         pre_terreno = (CardView)findViewById(R.id.pre_terreno);
         siembra = (CardView)findViewById(R.id.siembra);
         fertilizacion = (CardView)findViewById(R.id.fertilizacion);
@@ -67,6 +72,20 @@ public class CultProcesos extends AppCompatActivity {
         metodo.setText("Metodo: "+tipo_siembra);
         fecha.setText("Sembrio: "+created_ad);
 
+        SharedPreferences preferences = getSharedPreferences("put_recurso", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("idCultivo",idCultivo);
+        editor.commit();
+
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(getApplication(), Barchar_recursos.class);
+                home.putExtra("idcult",idCultivo);
+                startActivity(home);
+            }
+        });
 
 
         pre_terreno.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +143,7 @@ public class CultProcesos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getBaseContext(),"Fertilizacion Recursos".toString(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(),"Fertilizacion Recursos".toString(),Toast.LENGTH_SHORT).show();
                 Intent fert_recurs= new Intent(CultProcesos.this, Grid_Fert_Recurs.class);
                 fert_recurs.putExtra("name","Fertilizacion Recursos");
                 fert_recurs.putExtra("idcult",idCultivo);
@@ -136,8 +155,9 @@ public class CultProcesos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getBaseContext(),"Fertilizacion Maleza".toString(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(),"Fertilizacion Maleza".toString(),Toast.LENGTH_SHORT).show();
                 Intent fert_maleza= new Intent(CultProcesos.this, Grid_Fert_maleza.class);
+
                 fert_maleza.putExtra("name","Fertilizacion Maleza");
                 fert_maleza.putExtra("idcult",idCultivo);
                 startActivity(fert_maleza);
@@ -164,11 +184,12 @@ public class CultProcesos extends AppCompatActivity {
         CardView cosecha = (CardView)dialog.findViewById(R.id.btn_maleza);
         ruta1.setText("Recursos");
         ruta2.setText("Nueva cosecha");
+
         recur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(),"Cosecha Recursos".toString(),Toast.LENGTH_SHORT).show();
-                Intent cosecha= new Intent(CultProcesos.this, Grid_Cosecha.class);
+                Intent cosecha= new Intent(CultProcesos.this, Grid_recursos_cosecha.class);
                 cosecha.putExtra("name","Recurso de cosecha");
                 cosecha.putExtra("idcult",idCultivo);
                 startActivity(cosecha);
@@ -179,7 +200,11 @@ public class CultProcesos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getBaseContext(),"Nueva cosecha".toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),"Nueva Cosecha".toString(),Toast.LENGTH_SHORT).show();
+                Intent cosecha= new Intent(getApplication(), Grid_cant_cosechada.class);
+                cosecha.putExtra("name","Nueva Cosecha");
+                cosecha.putExtra("idcult",idCultivo);
+                startActivity(cosecha);
                 dialog.dismiss();
 
             }
@@ -187,6 +212,10 @@ public class CultProcesos extends AppCompatActivity {
 
         return 0;
     }
+
+
+
+
 
     public int ventaDialogo(Context contexto){
 

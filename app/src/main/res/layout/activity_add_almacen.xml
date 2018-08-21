@@ -4,163 +4,204 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2589bd"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
     tools:context=".Procesos.RecyclerRecursos.Add.Add_terreno">
 
-    <TextView
-        android:id="@+id/add_title_alma"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Almacenar cultivos"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Tipo de recurso:"
-            android:textColor="@android:color/holo_green_dark" />
-
-        <Spinner
-            android:id="@+id/add_spinner_alma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:soundEffectsEnabled="true"
-            android:textAlignment="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/cant_disp_alma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Disponible:" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/add_tiempo_alma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="00:00"
-            android:ems="10"
-            android:hint="00.00"
-            android:inputType="numberDecimal"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="Cantidad Kg:              "
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/add_inversion_alma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="00.00"
-            android:ems="10"
-            android:hint="00.00"
-            android:inputType="numberDecimal"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Valor de la inversion:"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/add_not_alma"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="4dp"
-            android:bufferType="editable"
-            android:ems="100"
-            android:inputType="textMultiLine"
-            android:textColor="@android:color/background_dark"
-            android:textSize="14sp" />
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/add_btnadd_alma"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_columnWeight="1"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_margin="25dp"
-            android:layout_rowWeight="1"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#FF2CAE05"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="5dp">
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="200dp"
-                android:layout_height="35dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Almacenar"
-                android:textColor="@android:color/background_dark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/add_title_alma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/coda"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Almacenar cultivo"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textSize="24sp" />
+
+                    <Button
+                        android:id="@+id/add_salir_alma"
+                        android:layout_width="35dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_arrow_back_24"
+                        android:gravity="center_vertical" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/coda"
+                    android:text="Tipo de recurso:"
+                    android:textColor="#ff4081" />
+
+                <Spinner
+                    android:id="@+id/add_spinner_alma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:soundEffectsEnabled="true"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/add_tiempo_alma"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:contentDescription="00:00"
+                            android:drawablePadding="8dp"
+                            android:drawableStart="@drawable/round_dns_24"
+                            android:ems="10"
+                            android:hint="Cantidad a almacenar"
+                            android:inputType="numberDecimal"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/coda"
+                        android:gravity="center_vertical"
+                        android:text="Kg"
+                        android:textColor="#ff4081" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/add_inversion_alma"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:contentDescription="00.00"
+                            android:drawablePadding="8dp"
+                            android:drawableStart="@drawable/money"
+                            android:ems="10"
+                            android:hint="Valor de la invesion"
+                            android:inputType="numberDecimal"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/coda"
+                        android:text="USD"
+                        android:textColor="#ff4081" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/add_not_alma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:bufferType="editable"
+                        android:ems="100"
+                        android:hint="Observaciones"
+                        android:inputType="textMultiLine"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/add_btnadd_alma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_rowWeight="1"
+                    android:layout_weight="1"
+                    android:background="#ffffff"
+                    app:cardCornerRadius="2dp">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="147dp"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/round_how_to_vote_black_18"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Guardar"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="18sp" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
         </android.support.v7.widget.CardView>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

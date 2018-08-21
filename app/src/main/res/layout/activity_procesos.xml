@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFFFF"
+    android:background="#2589bd"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".Procesos.CultProcesos">
 
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#FF05173D"
-        app:cardCornerRadius="14dp">
+        app:cardBackgroundColor="#2589bd">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,9 +26,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/coda"
                 android:gravity="fill_vertical"
                 android:text="Cultivo null"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -47,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/coda"
                     android:text="ninguno"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
@@ -57,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/coda"
                     android:text="ninguno"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
@@ -71,6 +73,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/coda"
                 android:text="ninguno"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
@@ -92,7 +95,7 @@
         <!--Columna Preparacion de terreno-->
 
         <android.support.v7.widget.CardView
-            android:id="@+id/pre_terreno"
+            android:id="@+id/info"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -101,6 +104,46 @@
             android:layout_marginRight="16dp"
             android:layout_rowWeight="1"
             app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/infoverde" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coda"
+                    android:text="Información"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/pre_terreno"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_rowWeight="1"
+
+            app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardMaxElevation="4dp">
 
@@ -108,24 +151,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Preparacion del terreno"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                    android:textColor="@android:color/black" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="fill_vertical|center_horizontal"
                     android:src="@drawable/ico3" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coda"
+                    android:gravity="center"
+                    android:text="Preparacion del terreno"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@android:color/black" />
 
 
             </LinearLayout>
@@ -151,22 +194,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Siembra"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ico4" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coda"
+                    android:gravity="center"
+                    android:text="Siembra"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
             </LinearLayout>
@@ -188,24 +231,27 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fertilizacion y control"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ico6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:fontFamily="@font/coda"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Fertilizacion y control"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
             </LinearLayout>
@@ -229,24 +275,25 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cosecha"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ico7" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coda"
+                    android:text="Cosecha"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
             </LinearLayout>
@@ -267,24 +314,26 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Venta"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ico10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coda"
+                    android:gravity="center"
+                    android:text="Venta"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
             </LinearLayout>

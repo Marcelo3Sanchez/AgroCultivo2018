@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class Add_almacenamiento extends AppCompatActivity {
     View focusView = null;
     Spinner item_almacen;
     TextView titulo, cant_disponible;
-
+    Button salir;
     int recurs=0, a=1;
     CardView add;
     EditText cantidad, inversion, nota;
@@ -41,7 +42,7 @@ public class Add_almacenamiento extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
     }
 
     private boolean iscantValid_a(String cant) {
@@ -116,7 +117,7 @@ public class Add_almacenamiento extends AppCompatActivity {
 
         item_almacen = (Spinner) findViewById(R.id.add_spinner_alma);
         titulo = (TextView)findViewById(R.id.add_title_alma);
-        cant_disponible = (TextView)findViewById(R.id.cant_disp_alma);
+   //     cant_disponible = (TextView)findViewById(R.id.cant_disp_alma);
         add = (CardView)findViewById(R.id.add_btnadd_alma);
 
         cantidad = (EditText)findViewById(R.id.add_tiempo_alma);
@@ -149,6 +150,15 @@ public class Add_almacenamiento extends AppCompatActivity {
             Toast.makeText(getBaseContext(),Integer.toString(recurs),Toast.LENGTH_SHORT).show();
             }
             @Override  public void onNothingSelected(AdapterView<?> adapterView) {   }  });
+
+        salir = (Button) findViewById(R.id.add_salir_alma);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {finish();}
+        });
+
+
+
     }
 
 

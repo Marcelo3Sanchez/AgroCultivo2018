@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Siembra;
+import com.myagro.agrocultivo.Procesos.RecyclerRecursos.Grid.Grid_Terreno;
 import com.myagro.agrocultivo.R;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ import java.util.Map;
 
 public class Add_siembra extends AppCompatActivity {
 
-    String URL_POST_add_siembra = R.string.host+"add_cultivo.php";
+    String URL_POST_add_siembra ="http://206.189.165.63/cultivo/siembra/anadir";
     String idCultivo;
     View focusView = null;
     Spinner item_siembra;
@@ -35,12 +38,13 @@ public class Add_siembra extends AppCompatActivity {
     String recurso;
     int recurs=0;
     CardView add;
+    Button salir;
     EditText horas, inversion, nota;
     int a=1;
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
     }
 
     private boolean ishoraValid_a(String hora) {
@@ -130,15 +134,22 @@ public class Add_siembra extends AppCompatActivity {
 
 
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,item_recurso);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,item_recurso);
         item_siembra.setAdapter(adapter);
 
         titulo.setText("Agregar siembra");
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validar();
-                if(a==1){finish();}
+                if(a==1){
+                    insertar_siembra();
+                    Intent addcultiv = new Intent(getApplication(), Grid_Siembra.class);
+                    addcultiv.putExtra("name","Siembra");
+                    startActivity(addcultiv);
+                    finish();
+                }
             }
         });
 
@@ -151,15 +162,19 @@ public class Add_siembra extends AppCompatActivity {
              recurso = adapterView.getItemAtPosition(i).toString();
             }
             @Override  public void onNothingSelected(AdapterView<?> adapterView) {   }  });
+        salir = (Button) findViewById(R.id.add_salir_recurs);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    finish();
+            }
+        });
+
     }
 
 
 
 
-
-
-
-    //Volley Inserta siembra
 
     public  void insertar_siembra(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_add_siembra, new Response.Listener<String>() {
@@ -170,11 +185,11 @@ public class Add_siembra extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Add_siembra.this , error+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication() , error+"", Toast.LENGTH_SHORT).show();
             }
         }){
 
-            // tipo_recurso, n_horas, val_inversion, notas, cultivos_id
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -183,11 +198,11 @@ public class Add_siembra extends AppCompatActivity {
                 String val= inversion.getText().toString();
                 String not = nota.getText().toString() ;
                 String cultid = idCultivo.toString();
-                params.put("name",tipo);
-                params.put("dime",hor);
-                params.put("tipr",val );
-                params.put("tips", not);
-                params.put("cants", cultid);
+                params.put("tipo_recurso",tipo);
+                params.put("n_horas",hor);
+                params.put("val_inversion",val );
+                params.put("notas", not);
+                params.put("cultivos_id", cultid);
                 return params;
             }
         };
